@@ -11,9 +11,9 @@ The goal is to evolve traditional DevOps automation into **AI-driven
 DevOps (AI-Ops)**.
 ------------------------------------------------------------------------
 ## Architecture Overview
-
+```markdown
 The system combines observability tools with AI reasoning agents.
-
+```text
 Kubernetes Cluster
       │
       ▼
@@ -34,7 +34,8 @@ Auto Fix       LangChain Analysis
 ------------------------------------------------------------------------
 
 ## Repository Structure
-
+```markdown
+```text
 AI-Ops-DevOps-Platform-Langchain
 │
 ├── app
