@@ -1,38 +1,56 @@
+import logging
 import subprocess
 
 
 def block_ip(context):
+    """
+    Block a suspicious IP address detected by the rule engine.
 
-    ip = context.get("source_ip")
+    Expected context keys:
+        ip (str)        -> source IP to block
+        reason (str)    -> reason for blocking
+    """
+
+    ip = context.get("ip")
+    reason = context.get("reason", "security incident")
 
     if not ip:
+        logging.warning("block_ip called but no IP provided in context")
         return
 
-    cmd = [
-        "iptables",
-        "-A",
-        "INPUT",
-        "-s",
-        ip,
-        "-j",
-        "DROP"
-    ]
+    logging.warning(f"Blocking IP {ip} due to {reason}")
 
-    subprocess.run(cmd)
+    try:
+        subprocess.run(
+            ["iptables", "-A", "INPUT", "-s", ip, "-j", "DROP"],
+            check=False
+        )
+
+    except Exception as e:
+        logging.error(f"Failed to block IP {ip}: {e}")
 
 
 def unblock_ip(context):
+    """
+    Remove a previously blocked IP.
 
-    ip = context.get("source_ip")
+    Expected context keys:
+        ip (str)
+    """
 
-    cmd = [
-        "iptables",
-        "-D",
-        "INPUT",
-        "-s",
-        ip,
-        "-j",
-        "DROP"
-    ]
+    ip = context.get("ip")
 
-    subprocess.run(cmd)
+    if not ip:
+        logging.warning("unblock_ip called but no IP provided in context")
+        return
+
+    logging.info(f"Removing block for IP {ip}")
+
+    try:
+        subprocess.run(
+            ["iptables", "-D", "INPUT", "-s", ip, "-j", "DROP"],
+            check=False
+        )
+
+    except Exception as e:
+        logging.error(f"Failed to unblock IP {ip}: {e}")
