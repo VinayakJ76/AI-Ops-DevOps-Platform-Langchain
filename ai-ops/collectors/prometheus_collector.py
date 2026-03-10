@@ -1,22 +1,28 @@
 import requests
+import os
+
 
 class PrometheusCollector:
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
 
-    def query(self, q):
+        self.url = os.getenv(
+            "PROMETHEUS_URL",
+            "http://prometheus.monitoring.svc.cluster.local:9090"
+        )
+
+
+    def collect(self):
+
+        query = "up"
+
         r = requests.get(
             f"{self.url}/api/v1/query",
-            params={"query": q},
-            timeout=5
+            params={"query": query}
         )
-        return r.json()
 
-    def get_node_cpu(self):
-        query = '100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)'
-        return self.query(query)
+        data = r.json()
 
-    def get_disk_usage(self):
-        query = 'node_filesystem_avail_bytes'
-        return self.query(query)
+        return {
+            "up": len(data.get("data", {}).get("result", []))
+        }

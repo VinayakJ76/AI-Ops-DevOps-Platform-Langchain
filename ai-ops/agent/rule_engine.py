@@ -6,7 +6,9 @@ from remediation.actions import ACTION_REGISTRY
 
 class RuleEngine:
 
-    def __init__(self, rules_dir):
+    def __init__(self):
+
+        rules_dir = "knowledge"
 
         self.rules = []
 
@@ -23,34 +25,26 @@ class RuleEngine:
                         self.rules.extend(data["issues"])
 
 
-    def evaluate(self, context):
+    def evaluate(self, metrics, logs, cluster):
 
         for rule in self.rules:
 
             detection = rule["detection"]
 
-            if detection in context:
+            if detection in metrics:
 
-                value = context[detection]
+                threshold = rule.get("threshold", 0)
 
-                threshold = rule.get("threshold")
+                if metrics[detection] > threshold:
+                    return rule
 
-                triggered = False
+        return None
 
-                if threshold is None:
-                    triggered = value
 
-                else:
-                    triggered = value > threshold
+    def execute(self, rule):
 
-                if triggered:
+        action = rule["action"]
 
-                    action = rule["action"]
+        if action in ACTION_REGISTRY:
 
-                    if action in ACTION_REGISTRY:
-
-                        ACTION_REGISTRY[action](context)
-
-                    else:
-
-                        print("Unknown action:", action)
+            ACTION_REGISTRY[action]({})

@@ -1,7 +1,12 @@
 import time
 
-def run_forever(task, interval):
+from agent.main import run_agent
+
+
+def start():
 
     while True:
-        task()
-        time.sleep(interval)
+
+        run_agent()
+
+        time.sleep(60)

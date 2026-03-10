@@ -1,24 +1,29 @@
+import os
 import requests
+
 
 class ElasticsearchCollector:
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self):
 
-    def search_errors(self):
+        self.url = os.getenv(
+            "ELASTICSEARCH_URL",
+            "http://elasticsearch.logging.svc.cluster.local:9200"
+        )
 
-        query = {
-          "query": {
-            "match": {
-              "log.level": "error"
-            }
-          }
-        }
+
+    def collect(self):
 
         r = requests.get(
             f"{self.url}/_search",
-            json=query,
-            timeout=5
+            json={
+                "size": 10,
+                "query": {
+                    "match": {
+                        "level": "error"
+                    }
+                }
+            }
         )
 
         return r.json()
