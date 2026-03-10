@@ -1,46 +1,61 @@
-# AI-Assisted DevOps Platform
+# AI-Ops DevOps Platform (LangChain)
 
-This project demonstrates how **Artificial Intelligence can assist
-DevOps engineers** by automating monitoring, incident detection,
-root-cause analysis, and remediation in a Kubernetes environment.
+An AI-powered DevOps platform that combines Kubernetes observability,
+rule-based remediation, and LangChain-driven AI agents to detect,
+analyze, and resolve infrastructure and application incidents.
 
-The platform combines:
-
--   Kubernetes infrastructure
--   Observability stack (Prometheus + Elasticsearch + Kibana)
--   Automated remediation engine
--   AI reasoning agents
--   Security monitoring
+This project demonstrates how AI can assist SRE and DevOps teams
+with incident detection, root cause analysis, and automated remediation.
 
 The goal is to evolve traditional DevOps automation into **AI-driven
 DevOps (AI-Ops)**.
 
 ------------------------------------------------------------------------
 
-# Architecture Overview
+## Architecture Overview
 
-Infrastructure and applications generate metrics and logs which are
-collected by the observability stack. A rule engine detects known
-incidents and performs automated remediation. Unknown issues are
-analyzed by AI agents.
+The system combines observability tools with AI reasoning agents.
 
-    Infrastructure + Applications
-            |
-            v
-    Observability Stack
-    (Prometheus + ELK)
-            |
-            v
-    Detection Engine
-    (Rule Engine)
-            |
-      +-----+-----+
-      |           |
-      v           v
-    Known Issue   Unknown Issue
-    Auto Fix      AI Analysis
+Kubernetes Cluster
+      │
+      ▼
+Prometheus + Elasticsearch
+      │
+      ▼
+Rule Engine
+      │
+ ┌────┴─────────┐
+ │              │
+ ▼              ▼
+Known Issues   Unknown Issues
+Auto Fix       LangChain Analysis
+
 ![Architecture Diagram](gitops/images/Full_architecture.png)
 ------------------------------------------------------------------------
+
+## Repository Structure
+
+AI-Ops-DevOps-Platform-Langchain
+│
+├── app
+│ ├── backend
+│ └── frontend
+│
+├── infra
+│
+├── gitops
+│ └── infra-apps
+│
+├── ai-ops
+│ ├── agent
+│ ├── collectors
+│ ├── remediation
+│ ├── knowledge
+│ ├── config
+│ └── ai
+│
+└── monitoring
+---
 
 # AI Agents in the System
 
@@ -65,6 +80,17 @@ Outputs:
 -   Incident detection signals
 
 ------------------------------------------------------------------------
+## Features
+
+- Kubernetes monitoring using Prometheus
+- Centralized logging with ELK Stack
+- Rule-based incident detection
+- Automated remediation (restart pods, scale deployments, cleanup logs)
+- Security anomaly detection
+- AI-powered incident analysis using LangChain
+- Modular AI agent architecture
+
+---
 
 ## Incident Analysis Agent
 
@@ -177,12 +203,10 @@ AI / Automation - Python - AI Agents - Rule Engine - LLM Integration
 
 ------------------------------------------------------------------------
 
-# Future Enhancements
+## Future Roadmap
 
-Planned improvements:
-
--   LangChain-based incident reasoning
--   Multi-agent orchestration
--   AI-driven runbook generation
--   AI anomaly detection
--   Automated capacity planning
+- LangChain-based incident analysis agent
+- AI-assisted runbook generation
+- ChatOps interface for Kubernetes
+- Security threat detection
+- Multi-agent AI-Ops architecture
