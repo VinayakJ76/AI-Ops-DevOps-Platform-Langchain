@@ -1,24 +1,100 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ai-agent
+  namespace: monitoring
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ai-agent-role
+rules:
+
+- apiGroups: [ "" ]
+  resources:
+  - pods
+  - nodes
+  verbs:
+  - get
+  - list
+  - delete
+
+- apiGroups: [ "apps" ]
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ai-agent-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ai-agent-role
+subjects:
+- kind: ServiceAccount
+  name: ai-agent
+  namespace: monitoring
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ai-monitor-agent
   namespace: monitoring
+  labels:
+    app: ai-monitor-agent
 
 spec:
   replicas: 1
 
   selector:
     matchLabels:
-      app: ai-agent
+      app: ai-monitor-agent
 
   template:
     metadata:
       labels:
-        app: ai-agent
+        app: ai-monitor-agent
 
     spec:
-      serviceAccountName: default
+      serviceAccountName: ai-agent
 
       containers:
-      - name: ai-agent
-        image: yourrepo/ai-monitor-agent:latest
+      - name: ai-monitor-agent
+
+        image: your-dockerhub-user/ai-monitor-agent:latest
+
+        imagePullPolicy: Always
+
+        env:
+
+        - name: PROMETHEUS_URL
+          value: http://prometheus.monitoring.svc.cluster.local:9090
+
+        - name: ELASTICSEARCH_URL
+          value: http://elasticsearch.logging.svc.cluster.local:9200
+
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-agent-llm
+              key: OPENAI_API_KEY
+
+        - name: LLM_PROVIDER
+          value: openai
+
+        - name: LLM_MODEL
+          value: gpt-4o-mini
+
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "1"
+            memory: "1Gi"
