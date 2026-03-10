@@ -28,10 +28,10 @@ Rule Engine
 Known Issues   Unknown Issues
 Auto Fix       LangChain Analysis
 
-
+```
 ![Architecture Diagram](gitops/images/Full_architecture.png)
 
----
+
 ------------------------------------------------------------------------
 
 ## Repository Structure
@@ -56,7 +56,7 @@ AI-Ops-DevOps-Platform-Langchain
 │   └── ai
 │
 └── monitoring
----
+```
 ------------------------------------------------------------------------
 
 # AI Agents in the System
