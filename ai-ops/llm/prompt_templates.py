@@ -1,8 +1,12 @@
-INCIDENT_ANALYSIS_PROMPT = """
-You are an expert Kubernetes SRE.
+from langchain.prompts import PromptTemplate
 
-Analyze the following system information and determine
-the most likely root cause and remediation.
+
+incident_prompt = PromptTemplate(
+    input_variables=["metrics", "logs", "cluster"],
+    template="""
+You are a Kubernetes Site Reliability Engineer.
+
+Analyze the following data.
 
 Metrics:
 {metrics}
@@ -13,8 +17,10 @@ Logs:
 Cluster State:
 {cluster}
 
-Return:
+Determine:
+
 1. Root cause
 2. Recommended remediation
-3. Severity
+3. Severity level
 """
+)

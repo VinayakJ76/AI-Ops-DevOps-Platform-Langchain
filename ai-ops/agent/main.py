@@ -8,7 +8,7 @@ def analyze_unknown_incident(metrics, logs, cluster):
 
     result = analyzer.analyze(metrics, logs, cluster)
 
-    print("AI analysis result:")
+    print("AI Incident Analysis:")
     print(result)
 
     return result
