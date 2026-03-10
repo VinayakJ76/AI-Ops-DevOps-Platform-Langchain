@@ -47,15 +47,46 @@ AI-Ops-DevOps-Platform-Langchain
 ├── gitops
 │   └── infra-apps
 │
-├── ai-ops
-│   ├── agent
-│   ├── collectors
-│   ├── remediation
-│   ├── knowledge
-│   ├── config
-│   └── ai
+ai-ops
+├── agent
+│   ├── main.py
+│   ├── rule_engine.py
+│   └── scheduler.py
 │
-└── monitoring
+├── collectors
+│   ├── prometheus_collector.py
+│   ├── elasticsearch_collector.py
+│   └── kubernetes_collector.py
+│
+├── config
+│   └── config.yaml
+│
+├── knowledge
+│   ├── kubernetes_nodes.yaml
+│   ├── kubernetes_pods.yaml
+│   ├── deployments.yaml
+│   ├── infrastructure.yaml
+│   ├── security.yaml
+│   └── miscellaneous.yaml
+│
+├── llm
+│   ├── langchain_agent.py
+│   ├── langchain_tools.py
+│   └── prompt_templates.py
+│
+├── notifications
+│   └── notifier.py
+│
+├── remediation
+│   ├── actions.py
+│   ├── cleanup_actions.py
+│   ├── deployment_actions.py
+│   ├── pod_actions.py
+│   └── security_actions.py
+│
+├── Dockerfile
+└── requirements.txt
+
 ```
 ------------------------------------------------------------------------
 
