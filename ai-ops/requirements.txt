@@ -1,0 +1,7 @@
+requests
+pyyaml
+kubernetes
+langchain
+langchain-openai
+langchain-community
+openai

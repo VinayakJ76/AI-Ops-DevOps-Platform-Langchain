@@ -1,0 +1,26 @@
+issues:
+
+- name: brute_force_login
+  detection: auth_failures
+  threshold: 50
+  action: block_ip
+
+- name: ddos_traffic_spike
+  detection: requests_per_ip
+  threshold: 1000
+  action: block_ip
+
+- name: port_scanning_detected
+  detection: port_scan_attempts
+  threshold: 20
+  action: alert_security
+
+- name: suspicious_api_calls
+  detection: suspicious_api_patterns
+  threshold: 10
+  action: alert_security
+
+- name: sql_injection_attempt
+  detection: sql_injection_patterns
+  threshold: 5
+  action: block_ip
