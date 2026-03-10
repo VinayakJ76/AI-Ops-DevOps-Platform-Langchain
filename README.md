@@ -1,45 +1,93 @@
-# AI-Assisted DevOps Platform
+# AI-Ops DevOps Platform (LangChain)
 
-This project demonstrates how **Artificial Intelligence can assist
-DevOps engineers** by automating monitoring, incident detection,
-root-cause analysis, and remediation in a Kubernetes environment.
+An AI-powered DevOps platform that combines Kubernetes observability,
+rule-based remediation, and LangChain-driven AI agents to detect,
+analyze, and resolve infrastructure and application incidents.
 
-The platform combines:
-
--   Kubernetes infrastructure
--   Observability stack (Prometheus + Elasticsearch + Kibana)
--   Automated remediation engine
--   AI reasoning agents
--   Security monitoring
+This project demonstrates how AI can assist SRE and DevOps teams
+with incident detection, root cause analysis, and automated remediation.
 
 The goal is to evolve traditional DevOps automation into **AI-driven
 DevOps (AI-Ops)**.
+------------------------------------------------------------------------
+## Architecture Overview
+
+The system combines observability tools with AI reasoning agents.
+```text
+Kubernetes Cluster
+      │
+      ▼
+Prometheus + Elasticsearch
+      │
+      ▼
+Rule Engine
+      │
+ ┌────┴─────────┐
+ │              │
+ ▼              ▼
+Known Issues   Unknown Issues
+Auto Fix       LangChain Analysis
+
+```
+![Architecture Diagram](gitops/images/Full_architecture.png)
+
 
 ------------------------------------------------------------------------
 
-# Architecture Overview
+## Repository Structure
 
-Infrastructure and applications generate metrics and logs which are
-collected by the observability stack. A rule engine detects known
-incidents and performs automated remediation. Unknown issues are
-analyzed by AI agents.
+```text
+AI-Ops-DevOps-Platform-Langchain
+├── app
+│   ├── backend
+│   └── frontend
+│
+├── infra
+│
+├── gitops
+│   └── infra-apps
+│
+ai-ops
+├── agent
+│   ├── main.py
+│   ├── rule_engine.py
+│   └── scheduler.py
+│
+├── collectors
+│   ├── prometheus_collector.py
+│   ├── elasticsearch_collector.py
+│   └── kubernetes_collector.py
+│
+├── config
+│   └── config.yaml
+│
+├── knowledge
+│   ├── kubernetes_nodes.yaml
+│   ├── kubernetes_pods.yaml
+│   ├── deployments.yaml
+│   ├── infrastructure.yaml
+│   ├── security.yaml
+│   └── miscellaneous.yaml
+│
+├── llm
+│   ├── langchain_agent.py
+│   ├── langchain_tools.py
+│   └── prompt_templates.py
+│
+├── notifications
+│   └── notifier.py
+│
+├── remediation
+│   ├── actions.py
+│   ├── cleanup_actions.py
+│   ├── deployment_actions.py
+│   ├── pod_actions.py
+│   └── security_actions.py
+│
+├── Dockerfile
+└── requirements.txt
 
-    Infrastructure + Applications
-            |
-            v
-    Observability Stack
-    (Prometheus + ELK)
-            |
-            v
-    Detection Engine
-    (Rule Engine)
-            |
-      +-----+-----+
-      |           |
-      v           v
-    Known Issue   Unknown Issue
-    Auto Fix      AI Analysis
-![Architecture Diagram](gitops/images/Full_architecture.png)
+```
 ------------------------------------------------------------------------
 
 # AI Agents in the System
@@ -63,6 +111,17 @@ Inputs:
 Outputs:
 
 -   Incident detection signals
+
+------------------------------------------------------------------------
+## Features
+
+- Kubernetes monitoring using Prometheus
+- Centralized logging with ELK Stack
+- Rule-based incident detection
+- Automated remediation (restart pods, scale deployments, cleanup logs)
+- Security anomaly detection
+- AI-powered incident analysis using LangChain
+- Modular AI agent architecture
 
 ------------------------------------------------------------------------
 
@@ -177,12 +236,10 @@ AI / Automation - Python - AI Agents - Rule Engine - LLM Integration
 
 ------------------------------------------------------------------------
 
-# Future Enhancements
+## Future Roadmap
 
-Planned improvements:
-
--   LangChain-based incident reasoning
--   Multi-agent orchestration
--   AI-driven runbook generation
--   AI anomaly detection
--   Automated capacity planning
+- LangChain-based incident analysis agent
+- AI-assisted runbook generation
+- ChatOps interface for Kubernetes
+- Security threat detection
+- Multi-agent AI-Ops architecture
