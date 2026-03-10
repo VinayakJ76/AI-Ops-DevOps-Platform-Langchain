@@ -9,9 +9,7 @@ with incident detection, root cause analysis, and automated remediation.
 
 The goal is to evolve traditional DevOps automation into **AI-driven
 DevOps (AI-Ops)**.
-
 ------------------------------------------------------------------------
-
 ## Architecture Overview
 
 The system combines observability tools with AI reasoning agents.
