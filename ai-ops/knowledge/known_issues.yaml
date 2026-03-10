@@ -1,0 +1,15 @@
+issues:
+
+- name: pod_crashloop
+  detection: CrashLoopBackOff
+  action: restart_pod
+
+- name: disk_full
+  detection: disk_usage
+  threshold: 90
+  action: cleanup_logs
+
+- name: high_cpu
+  detection: cpu_usage
+  threshold: 90
+  action: scale_deployment

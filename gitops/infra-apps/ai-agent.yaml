@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-monitor-agent
+  namespace: monitoring
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: ai-agent
+
+  template:
+    metadata:
+      labels:
+        app: ai-agent
+
+    spec:
+      serviceAccountName: default
+
+      containers:
+      - name: ai-agent
+        image: yourrepo/ai-monitor-agent:latest

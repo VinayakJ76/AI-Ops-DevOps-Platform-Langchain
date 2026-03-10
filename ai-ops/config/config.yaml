@@ -1,0 +1,11 @@
+prometheus_url: http://prometheus.monitoring.svc.cluster.local:9090
+
+elasticsearch_url: http://elasticsearch.logging.svc.cluster.local:9200
+
+check_interval_seconds: 30
+
+disk_threshold: 90
+cpu_threshold: 90
+memory_threshold: 90
+
+slack_webhook: https://hooks.slack.com/services/XXX
