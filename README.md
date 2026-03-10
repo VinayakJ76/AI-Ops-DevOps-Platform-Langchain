@@ -34,7 +34,7 @@ Auto Fix       LangChain Analysis
 ------------------------------------------------------------------------
 
 ## Repository Structure
-```markdown
+
 ```text
 AI-Ops-DevOps-Platform-Langchain
 │
