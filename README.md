@@ -31,31 +31,32 @@ Auto Fix       LangChain Analysis
 
 ![Architecture Diagram](gitops/images/Full_architecture.png)
 
+---
 ------------------------------------------------------------------------
 
 ## Repository Structure
 
 ```text
 AI-Ops-DevOps-Platform-Langchain
-│
 ├── app
-│ ├── backend
-│ └── frontend
+│   ├── backend
+│   └── frontend
 │
 ├── infra
 │
 ├── gitops
-│ └── infra-apps
+│   └── infra-apps
 │
 ├── ai-ops
-│ ├── agent
-│ ├── collectors
-│ ├── remediation
-│ ├── knowledge
-│ ├── config
-│ └── ai
+│   ├── agent
+│   ├── collectors
+│   ├── remediation
+│   ├── knowledge
+│   ├── config
+│   └── ai
 │
 └── monitoring
+---
 ------------------------------------------------------------------------
 
 # AI Agents in the System
